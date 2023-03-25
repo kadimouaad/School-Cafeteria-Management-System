@@ -1,0 +1,36 @@
+<MDScreen>
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source:"views/Images/LoginPage.png"
+
+    MDStackLayout:
+        MDAnchorLayout:
+            MDStackLayout:
+                size_hint: dp(0.3), None
+                spacing: dp(5)
+                orientation: 'lr-bt'
+                MDRaisedButton:
+                    size_hint_x: dp(1)
+                    text: "Login"
+                    bg_hint_color: app.theme_cls.primary_dark
+
+                MDTextField:
+                    icon_left: 'lock'
+                    hint_text: "Password"
+                    mode: "fill"
+                    password: True
+                    fill_color: 0, 0, 0, 0.4
+                MDTextField:
+                    icon_left: 'account'
+                    hint_text: "Username"
+                    mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                Image:
+                    size_hint_y: 1.5
+                    source:"views/Images/Usericon.png"
+
+
+
+
