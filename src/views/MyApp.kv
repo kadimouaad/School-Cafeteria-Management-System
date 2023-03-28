@@ -17,16 +17,15 @@
                     bg_hint_color: app.theme_cls.primary_dark
 
                 MDTextField:
-                    icon_left: 'lock'
+                    icon_left:"lock"
                     hint_text: "Password"
-                    mode: "fill"
-                    password: True
-                    fill_color: 0, 0, 0, 0.4
+                    helper_text: "wrong password"
+                    helper_text_mode: "on_focus"
                 MDTextField:
-                    icon_left: 'account'
+                    icon_left: "account"
                     hint_text: "Username"
-                    mode: "fill"
-                    fill_color: 0, 0, 0, .4
+                    color_mode: 'accent'
+
                 Image:
                     size_hint_y: 1.5
                     source:"views/Images/Usericon.png"
