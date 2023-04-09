@@ -11,8 +11,8 @@ student_dao = StudentDao({
     'database': "mydatabase"
 })
 
+print(student_dao.get_student(3))
 
-student_dao.update_student("yaaaa", "GG", 2)
 
 
 
