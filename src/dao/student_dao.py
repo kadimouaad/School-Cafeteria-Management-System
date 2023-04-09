@@ -43,11 +43,12 @@ class StudentDao:
             cursor.execute(query)
             self.connection.commit()
 
-    def update_student(self, name: str, student_class: str, student_type, birth_date: int, id: int):
+    def update_student(self, student: Student,id):
+        query = f"UPDATE student_list SET name=%s, student_class=%s, student_type=%s, birth_date=%s WHERE id={id}"
+
 
         with self.connection.cursor() as cursor:
-            cursor.execute(f"UPDATE student_list SET name=%s, student_class=%s, student_type=%s, birth_date=%s WHERE id=%s",
-                           (name, student_class, student_type, birth_date, id))
+            cursor.executemany(query, self._map_sql(student))
             self.connection.commit()
 
     def delete_table(self, name):
