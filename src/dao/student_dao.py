@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from src.dto.student import Student
 import mysql.connector
+from mysql.connector.errors import Error
 
 
 class StudentDao:
@@ -23,7 +24,7 @@ class StudentDao:
         with self.connection.cursor() as cursor:
             cursor.execute(f'SELECT * FROM student_list LIMIT {skip}, {limit}')
             for student in cursor.fetchall():
-                r.append(self._map(student))
+                r.append(str(self._map(student)))
         return r
 
     def add_student(self, student: Student):
@@ -42,25 +43,32 @@ class StudentDao:
             cursor.execute(query)
             self.connection.commit()
 
-    def update_student(self,name:str, student:str, id:int):
+    def update_student(self, student: Student,id):
+        query = f"UPDATE student_list SET name=%s, student_class=%s, student_type=%s, birth_date=%s WHERE id={id}"
+
 
         with self.connection.cursor() as cursor:
-            cursor.execute(f"UPDATE student_list SET name , student_class VALUES('%s', '%s')  WHERE id = {id}", (name, student))
+            cursor.executemany(query, self._map_sql(student))
             self.connection.commit()
-
 
     def delete_table(self, name):
         query = f'DROP TABLE {name}'
-        with self.connection.cursor() as cursor:
-            cursor.execute(query)
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+                print(f"A table called '{name}' was deleted successfully")
+        except mysql.connector.errors.ProgrammingError:
+            print("Please enter a correct table name!")
 
     def add_table(self, name):
 
         query = f'CREATE TABLE {name} (id INTEGER  AUTO_INCREMENT, name VARCHAR(255),  student_class VARCHAR(255), student_type VARCHAR(255), birth_date INTEGER(10), PRIMARY KEY (id))'
-        with self.connection.cursor() as cursor:
-            cursor.execute(query)
-
-
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+                print(f"A table called '{name}' was added successfully")
+        except mysql.connector.errors.ProgrammingError:
+            print("Wrong name.. Please try again")
 
     @staticmethod
     def _map(student_dic: dict) -> Student:
@@ -74,4 +82,4 @@ class StudentDao:
     @staticmethod
     def _map_sql(student: Student) -> List[Tuple]:
         return [
-            (student.id ,student.name, student.student_class, student.student_type, student.birth_date)]
+            (student.name, student.student_class, student.student_type, student.birth_date)]
