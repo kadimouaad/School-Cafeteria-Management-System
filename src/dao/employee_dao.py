@@ -4,7 +4,7 @@ import mysql.connector
 from mysql.connector.errors import Error
 
 
-class Employee_Dao:
+class EmployeeDao:
     def __init__(self, args: dict):
         self.connection = mysql.connector.connect(
             host=args['host'],
@@ -50,11 +50,10 @@ class Employee_Dao:
             cursor.executemany(query, self._map_sql(employee))
             self.connection.commit()
 
-    def authenticate(self, entered_username,):
-        query = f"SELECT * FROM employee_user WHERE username = %s "
 
-        with self.connection.cursor() as cursor:
-            cursor.execute(query,entered_username)
+
+
+
 
     @staticmethod
     def _map(employee_dic: dict) -> Employee:
