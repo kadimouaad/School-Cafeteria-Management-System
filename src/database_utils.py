@@ -38,3 +38,20 @@ class DatabaseController:
                 print(f"A table called '{name}' was added successfully")
         except mysql.connector.errors.ProgrammingError:
             print("Wrong name.. Please try again")
+
+    def show_primary_keys(self, table):
+
+        query = f'SHOW KEYS FROM {table} WHERE key_name=PRIMARY'
+        with self.connection.cursor() as cursor:
+            cursor.execute('SHOW INDEX FROM mydatabase.employee_list')
+            print("done")
+
+
+x = DatabaseController({
+    'host': "localhost",
+    'user': "root",
+    'password': "root",
+    'database': "mydatabase"
+})
+print(x.show_primary_keys('employee_list'))
+
