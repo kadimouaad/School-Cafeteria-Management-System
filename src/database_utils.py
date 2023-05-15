@@ -2,6 +2,13 @@ import mysql.connector
 from mysql.connector.errors import Error
 
 class DatabaseController:
+    def __init__(self, args: dict):
+        self.connection = mysql.connector.connect(
+            host=args['host'],
+            user=args['user'],
+            password=args['password'],
+            database=args['database']
+        )
 
     def delete_table(self, name):
         query = f'DROP TABLE {name}'
@@ -21,3 +28,30 @@ class DatabaseController:
                 print(f"A table called '{name}' was added successfully")
         except mysql.connector.errors.ProgrammingError:
             print("Wrong name.. Please try again")
+
+    def add_employee_table(self, name):
+
+        query = f'CREATE TABLE {name} (id INTEGER  AUTO_INCREMENT, name VARCHAR(255),  employee_statue VARCHAR(255), birth_date INTEGER(10), PRIMARY KEY (id))'
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+                print(f"A table called '{name}' was added successfully")
+        except mysql.connector.errors.ProgrammingError:
+            print("Wrong name.. Please try again")
+
+    def show_primary_keys(self, table):
+
+        query = f'SHOW KEYS FROM {table} WHERE key_name=PRIMARY'
+        with self.connection.cursor() as cursor:
+            cursor.execute('SHOW INDEX FROM mydatabase.employee_list')
+            print("done")
+
+
+x = DatabaseController({
+    'host': "localhost",
+    'user': "root",
+    'password': "root",
+    'database': "mydatabase"
+})
+print(x.show_primary_keys('employee_list'))
+

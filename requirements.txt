@@ -1,0 +1,7 @@
+mysql~=0.0.3
+mysql-connector-python~=8.0.32
+Kivy~=2.1.0
+kivymd~=1.1.1
+opencv-python~=4.5.5.62
+qrcode~=7.4.2
+pandas~=2.0.0
