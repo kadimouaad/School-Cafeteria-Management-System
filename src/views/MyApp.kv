@@ -1,34 +1,160 @@
-<MDScreen>
-    canvas.before:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source:"views/Images/LoginPage.png"
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#808080"
+    text_color: "#c5bdd2"
+    icon_color: "#c5bdd2"
+    ripple_color: "#C5C5C5"
+    selected_color: "#4FF7FF"
 
-    MDStackLayout:
-        MDAnchorLayout:
-            MDStackLayout:
-                size_hint: dp(0.3), None
-                spacing: dp(5)
-                orientation: 'lr-bt'
-                MDRaisedButton:
-                    size_hint_x: dp(1)
-                    text: "Login"
-                    bg_hint_color: app.theme_cls.primary_dark
 
-                MDTextField:
-                    icon_left:"lock"
-                    hint_text: "Password"
-                    helper_text: "wrong password"
-                    helper_text_mode: "on_focus"
-                MDTextField:
-                    icon_left: "account"
-                    hint_text: "Username"
-                    color_mode: 'accent'
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
 
-                Image:
-                    size_hint_y: 1.5
-                    source:"views/Images/Usericon.png"
+
+<MainScreen>:
+
+    md_bg_color: 255, 255, 255, 1
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+
+
+
+
+                MDScreenManager:
+                    id: main_window
+
+
+
+
+
+                MDTopAppBar:
+                    title: "Student manager"
+                    elevation: 4
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#D4F1F4"
+                    specific_text_color: "#4a4939"
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+                MDScreen:
+                    MDFloatingActionButtonSpeedDial:
+
+                        data: app.data
+                        root_button_anim: True
+                        hint_animation: True
+
+
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+            opening_time: 0.55
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Tools"
+                    title_color: "#4a4939"
+
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerLabel:
+                    text: "Students"
+
+                DrawerClickableItem:
+                    id: student_list
+                    left_action_items: [["menu", lambda x: student.set_state("open")]]
+                    icon: "list-box"
+                    text_right_color: "#4a4939"
+                    text: "Student list"
+                    on_press: root.change_screen()
+
+                DrawerClickableItem:
+
+                    icon: "list-box"
+                    text: "Employee list"
+                    on_press: root.change_screen()
+
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Employee"
+
+                DrawerClickableItem:
+                    icon: "database"
+                    text: "stats"
+
+                DrawerClickableItem:
+                    icon: "information-outline"
+                    text: "About"
+
+<ClientsTable>
+
+<Stats>
+    MDBoxLayout:
+
+        MDTextField:
+            id: empname
+            hint_text: "employee name"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDTextField:
+            id:empstatue
+            hint_text: "employee statue"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+
+        MDTextField:
+            id:empbirthday
+            hint_text: "birthday"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDBoxLayout:
+            Button:
+                text: "Add Employee"
+                on_press: root.add_row()
+            Button:
+                text:"Delete All"
+                on_press: root.remove_row()
+
+<Students>
+    MDBoxLayout:
+
+        MDTextField:
+            id: name
+            hint_text: "name"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDTextField:
+            id:sclass
+            hint_text: "student class"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDTextField:
+            id:stype
+            hint_text: "student type"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDTextField:
+            id:birthday
+            hint_text: "birthday"
+            mode: "fill"
+            fill_color: 0, 0, 0, .4
+        MDBoxLayout:
+            Button:
+                text: "Add student"
+                on_press: root.add_row()
+            Button:
+                text:"Delete All"
+                on_press: root.remove_row()
+
+
 
 
 

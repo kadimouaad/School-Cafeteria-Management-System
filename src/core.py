@@ -9,25 +9,20 @@ from src.dto.employee import Employee
 from src.qrscanner import Scanner
 import cv2
 import webbrowser
+from datetime import datetime
+import time
 
-"""
-student_dao = StudentDao({
+
+student_dao = EmployeeDao({
     'host': "localhost",
     'user': "root",
     'password': "root",
     'database': "mydatabase"
 })
 
-employee_dao = Employee_Dao({
-    'host': "localhost",
-    'user': "root",
-    'password': "root",
-    'database': "mydatabase"
-})
-"""
 
-class Meals():
-    pass
+
+
 
 
 

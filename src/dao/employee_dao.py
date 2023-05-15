@@ -16,14 +16,14 @@ class EmployeeDao:
         with self.connection.cursor() as cursor:
             cursor.execute(f'SELECT * FROM Employee_list WHERE id = {id}')
             for employee in cursor.fetchall():
-                return self._map(employee)
+                return self.map(employee)
 
     def get_employees(self, limit, skip) -> List[Employee]:
         r = []
         with self.connection.cursor() as cursor:
             cursor.execute(f'SELECT * FROM Employee_list LIMIT {skip}, {limit}')
             for emp in cursor.fetchall():
-                r.append(str(self._map(emp)))
+                r.append(self.map(emp))
         return r
 
     def add_employee(self, employee: Employee):
@@ -33,7 +33,7 @@ class EmployeeDao:
         VALUES ( %s, %s, %s )
         """
         with self.connection.cursor() as cursor:
-            cursor.executemany(query, self._map_sql(employee))
+            cursor.executemany(query, (self.map_sql(employee),))
             self.connection.commit()
 
     def delete_employee(self, id: int) -> Employee:
@@ -47,7 +47,7 @@ class EmployeeDao:
 
 
         with self.connection.cursor() as cursor:
-            cursor.executemany(query, self._map_sql(employee))
+            cursor.executemany(query, self.map_sql(employee))
             self.connection.commit()
 
 
@@ -56,7 +56,7 @@ class EmployeeDao:
 
 
     @staticmethod
-    def _map(employee_dic: dict) -> Employee:
+    def map(employee_dic: dict) -> Employee:
         return Employee(employee_dic[0],
                         employee_dic[1],
                         employee_dic[2],
@@ -64,6 +64,5 @@ class EmployeeDao:
                         )
 
     @staticmethod
-    def _map_sql(employee: Employee) -> List[Tuple]:
-        return [
-            (employee.name, employee.employee_statue, employee.birth_date)]
+    def map_sql(employee: Employee) -> Tuple:
+        return employee.name, employee.employee_statue, employee.birth_date

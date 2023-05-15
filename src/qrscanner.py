@@ -47,9 +47,7 @@ class Scanner:
         num_students_entered += 1
 
 
-x = Scanner()
-x.read_qr_code()
-x.mark_presence()
+
 
 
 
