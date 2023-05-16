@@ -155,11 +155,6 @@ class MainScreen(MDScreen):
 
 
 class Canteen_manager(MDApp):
-    data = {
-        'Add Student': 'language-python',
-        'Delete student': 'language-php',
-        'Update student': 'language-cpp',
-    }
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -167,6 +162,5 @@ class Canteen_manager(MDApp):
         root = Builder.load_file("views/MyApp.kv")
         sm.add_widget(MainScreen())
         return sm
-
 
 Canteen_manager().run()
