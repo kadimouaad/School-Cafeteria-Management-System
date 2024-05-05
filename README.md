@@ -1,1 +1,1 @@
-# Desktop-App
+# School Cafeteria Management System
